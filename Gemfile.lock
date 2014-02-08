@@ -1,0 +1,14 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ast (1.1.0)
+    parser (2.1.4)
+      ast (~> 1.1)
+      slop (~> 3.4, >= 3.4.5)
+    slop (3.4.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  parser (~> 2.1.3)
