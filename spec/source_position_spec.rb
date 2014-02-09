@@ -1,5 +1,6 @@
 require 'spec_helper'
-require 'lib/source_range'
+
+require 'source_position'
 
 describe SourcePosition do
   describe '#<=>' do

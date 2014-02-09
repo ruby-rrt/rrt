@@ -1,2 +1,1 @@
-$:<< File.join(File.dirname(__FILE__), '..')
-require 'parser/current'
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '../lib'))

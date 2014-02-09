@@ -1,3 +1,5 @@
+require 'parser/current'
+
 class ParsedSource
   attr_accessor :ast
 

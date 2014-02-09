@@ -1,5 +1,6 @@
 require 'spec_helper'
-require 'lib/source_range'
+
+require 'source_range'
 
 describe SourceRange do
   it 'is initialized with start_position and end_position' do
