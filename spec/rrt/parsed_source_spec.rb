@@ -10,7 +10,7 @@ module RRT
     end
 
     describe '#find_node' do
-      pending 'finds a node from passed in position' do
+      it 'finds a node from passed in position' do
         parsed_source = parse('1 + 2 + 3')
         node = parsed_source.find_node(SourcePosition.new(0, 2))
         expect(node).not_to be_nil
