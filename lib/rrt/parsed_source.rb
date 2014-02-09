@@ -1,6 +1,6 @@
 module RRT
   class ParsedSource
-    attr_accessor :ast
+    attr_reader :ast
 
     def initialize(ast)
       @ast = ast
