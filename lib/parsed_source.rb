@@ -6,6 +6,7 @@ class ParsedSource
   end
 
   def find_node(position)
+    true
   end
 
   def self.parse(filename, src)

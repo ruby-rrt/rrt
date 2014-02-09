@@ -1,5 +1,7 @@
 require 'spec_helper'
+
 require 'lib/parsed_source'
+require 'lib/source_position'
 
 describe ParsedSource do
   describe '.parse' do
