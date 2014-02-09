@@ -11,5 +11,9 @@ module RRT
     def valid_for?(lines)
       line < lines.size && column < lines[line].size
     end
+
+    def self.from_range(range)
+      self.new(range.line, range.column)
+    end
   end
 end
