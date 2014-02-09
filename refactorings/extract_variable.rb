@@ -21,6 +21,6 @@ class ExtractVariable
 
     variable_definition = "#{variable_name} = #{variable_value}"
     source_lines.insert(source_range.start_position.line, variable_definition)
-    source_lines.join('\n')
+    source_lines.join("\n")
   end
 end

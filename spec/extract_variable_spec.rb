@@ -15,7 +15,7 @@ describe ExtractVariable do
                                source,
                                source_range,
                                variable_name)
-      expect(result).to eq('x = 2 + 3\n1 + x')
+      expect(result).to eq("x = 2 + 3\n1 + x")
     end
   end
 end
