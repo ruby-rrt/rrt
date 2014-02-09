@@ -11,10 +11,7 @@ class ParsedSource
     true
   end
 
-  def self.parse(filename, src)
-    parser = Parser::CurrentRuby.new
-    source_buffer = Parser::Source::Buffer.new(filename)
-    source_buffer.source = src
-    ParsedSource.new(parser.tokenize(source_buffer)[0])
+  def self.parse(src)
+    ParsedSource.new(Parser::CurrentRuby.parse(src))
   end
 end
