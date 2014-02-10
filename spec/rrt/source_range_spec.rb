@@ -20,27 +20,33 @@ module RRT
     describe '#valid_for?' do
       it 'returns true if source range is valid for the given source lines' do
         source_range = SourceRange.new(SourcePosition.new(1, 1),
-                                      SourcePosition.new(2, 2))
+                                       SourcePosition.new(2, 2))
         expect(source_range.valid_for?(['', '01', '012'])).to be_true
       end
 
       describe 'returns false if source range is invalid for the given source lines' do
         it 'empty array' do
           source_range = SourceRange.new(SourcePosition.new(0, 0),
-                                        SourcePosition.new(0, 0))
+                                         SourcePosition.new(0, 0))
           expect(source_range.valid_for?([])).to be_false
         end
 
-        it 'line is out of range' do
-          source_range = SourceRange.new(SourcePosition.new(1, 2),
-                                        SourcePosition.new(2, 3))
-          expect(source_range.valid_for?(['', ''])).to be_false
+        it 'end line is out of range' do
+          source_range = SourceRange.new(SourcePosition.new(0, 0),
+                                         SourcePosition.new(3, 0))
+          expect(source_range.valid_for?(['0', '0'])).to be_false
         end
 
-        it 'column is out of range' do
-          source_range = SourceRange.new(SourcePosition.new(1, 1),
-                                        SourcePosition.new(1, 2))
-          expect(source_range.valid_for?(['', ''])).to be_false
+        it 'start column is out of range' do
+          source_range = SourceRange.new(SourcePosition.new(0, 1),
+                                         SourcePosition.new(1, 0))
+          expect(source_range.valid_for?(['0', '0'])).to be_false
+        end
+
+        it 'end column is out of range' do
+          source_range = SourceRange.new(SourcePosition.new(0, 0),
+                                         SourcePosition.new(1, 1))
+          expect(source_range.valid_for?(['0', '0'])).to be_false
         end
       end
     end

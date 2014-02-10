@@ -6,7 +6,7 @@ module RRT
     end
 
     def valid_for?(lines)
-      end_position.line < lines.size && end_position.column < lines[end_position.line].size
+      start_position.valid_for?(lines) && end_position.valid_for?(lines)
     end
   end
 end

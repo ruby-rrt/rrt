@@ -15,5 +15,20 @@ module RRT
         expect(SourcePosition.new(0, 0)).to be < SourcePosition.new(0, 1)
       end
     end
+
+    describe '#valid_for' do
+      it 'returns true when position is valid for passed in lines' do
+        expect(SourcePosition.new(1, 0).valid_for?(['', '0'])).to be_true
+      end
+
+      it 'returns false when line is out of range' do
+        expect(SourcePosition.new(0, 0).valid_for?([])).to be_false
+        expect(SourcePosition.new(1, 0).valid_for?(['0'])).to be_false
+      end
+
+      it 'returns false when column is out of range' do
+        expect(SourcePosition.new(0, 1).valid_for?(['0'])).to be_false
+      end
+    end
   end
 end
