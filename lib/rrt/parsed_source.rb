@@ -1,8 +1,9 @@
 module RRT
   class ParsedSource
-    attr_reader :ast
+    attr_reader :source
 
-    def initialize(ast)
+    def initialize(raw_source, ast)
+      @source = Source.new(raw_source)
       @ast = ast
     end
 
@@ -11,7 +12,7 @@ module RRT
     end
 
     def self.parse(src)
-      self.new(Parser::CurrentRuby.parse(src))
+      self.new(src, Parser::CurrentRuby.parse(src))
     end
 
     private
@@ -33,8 +34,8 @@ module RRT
 
     def position_in_node?(position, node)
       expression = node.location.expression
-      begin_position = SourcePosition.from_range(expression.begin)
-      end_position = SourcePosition.from_range(expression.end)
+      begin_position = @source.position_from_range(expression.begin)
+      end_position = @source.position_from_range(expression.end)
       begin_position <= position && position < end_position
     end
 

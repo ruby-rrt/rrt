@@ -2,52 +2,20 @@ require 'spec_helper'
 
 module RRT
   describe SourceRange do
-    it 'is initialized with start_position and end_position' do
-      source_range = SourceRange.new(SourcePosition.new(0, 0),
-                                    SourcePosition.new(0, 1))
-      expect(source_range.start_position.line).to eq(0)
-      expect(source_range.start_position.column).to eq(0)
-      expect(source_range.end_position.line).to eq(0)
-      expect(source_range.end_position.column).to eq(1)
-    end
-
-    it 'raises ArgumentError if start_position is not before end_position' do
-      expect {
-        SourceRange.new(SourcePosition.new(0, 1), SourcePosition.new(0, 0))
-      }.to raise_error(ArgumentError)
-    end
-
-    describe '#valid_for?' do
-      it 'returns true if source range is valid for the given source lines' do
-        source_range = SourceRange.new(SourcePosition.new(1, 1),
-                                       SourcePosition.new(2, 2))
-        expect(source_range.valid_for?(['', '01', '012'])).to be_true
+    describe '.new' do
+      it 'raises ArgumentError if start_position and end_position are not in the same source' do
+        source1 = Source.new('')
+        source2 = Source.new('')
+        expect {
+          SourceRange.new(source1.position(0, 0), source2.position(0, 1))
+        }.to raise_error(ArgumentError)
       end
 
-      describe 'returns false if source range is invalid for the given source lines' do
-        it 'empty array' do
-          source_range = SourceRange.new(SourcePosition.new(0, 0),
-                                         SourcePosition.new(0, 0))
-          expect(source_range.valid_for?([])).to be_false
-        end
-
-        it 'end line is out of range' do
-          source_range = SourceRange.new(SourcePosition.new(0, 0),
-                                         SourcePosition.new(3, 0))
-          expect(source_range.valid_for?(['0', '0'])).to be_false
-        end
-
-        it 'start column is out of range' do
-          source_range = SourceRange.new(SourcePosition.new(0, 1),
-                                         SourcePosition.new(1, 0))
-          expect(source_range.valid_for?(['0', '0'])).to be_false
-        end
-
-        it 'end column is out of range' do
-          source_range = SourceRange.new(SourcePosition.new(0, 0),
-                                         SourcePosition.new(1, 1))
-          expect(source_range.valid_for?(['0', '0'])).to be_false
-        end
+      it 'raises ArgumentError if start_position is not before end_position' do
+        source = Source.new('line')
+        expect {
+          SourceRange.new(source.position(0, 1), source.position(0, 0))
+        }.to raise_error(ArgumentError)
       end
     end
   end

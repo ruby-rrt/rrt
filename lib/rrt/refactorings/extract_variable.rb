@@ -8,12 +8,10 @@ module RRT
       # - Detect variable redefinition?
       # - Test if it works with CRLF line endings.
 
-      def apply(source, source_range, variable_name)
-        source_lines = source.lines.to_a
+      def apply(source_range, variable_name)
+        raise ArgumentError, 'invalid range' unless source_range.start_position.line == source_range.end_position.line
 
-        raise ArgumentError, 'invalid range' unless source_range.start_position.line == source_range.end_position.line &&
-          source_range.valid_for?(source_lines)
-
+        source_lines = source_range.start_position.source.lines
         column_range = source_range.start_position.column..source_range.end_position.column
 
         variable_value = source_lines[source_range.start_position.line][column_range]

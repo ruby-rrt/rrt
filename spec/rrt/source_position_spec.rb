@@ -4,30 +4,21 @@ module RRT
   describe SourcePosition do
     describe '#<=>' do
       it 'positions are equal when they have same line and column' do
-        expect(SourcePosition.new(0, 0)).to eq(SourcePosition.new(0, 0))
+        expect(source_position(0, 0)).to eq(source_position(0, 0))
       end
 
       it 'position is less than other if line number is smaller' do
-        expect(SourcePosition.new(0, 1)).to be < SourcePosition.new(1, 0)
+        expect(source_position(0, 0)).to be < source_position(1, 0)
       end
 
       it 'position is less than other if column number is smaller' do
-        expect(SourcePosition.new(0, 0)).to be < SourcePosition.new(0, 1)
-      end
-    end
-
-    describe '#valid_for' do
-      it 'returns true when position is valid for passed in lines' do
-        expect(SourcePosition.new(1, 0).valid_for?(['', '0'])).to be_true
+        expect(source_position(0, 0)).to be < source_position(0, 1)
       end
 
-      it 'returns false when line is out of range' do
-        expect(SourcePosition.new(0, 0).valid_for?([])).to be_false
-        expect(SourcePosition.new(1, 0).valid_for?(['0'])).to be_false
-      end
+      private
 
-      it 'returns false when column is out of range' do
-        expect(SourcePosition.new(0, 1).valid_for?(['0'])).to be_false
+      def source_position(line, column)
+        described_class.new("line\nline", line, column)
       end
     end
   end
