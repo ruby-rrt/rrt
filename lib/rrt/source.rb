@@ -14,7 +14,7 @@ module RRT
     end
 
     def lines
-      @lines ||= @raw_source.lines
+      @lines ||= @raw_source.lines.to_a
     end
   end
 end
