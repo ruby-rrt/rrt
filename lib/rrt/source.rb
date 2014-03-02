@@ -13,6 +13,10 @@ module RRT
       position(range.line - 1, range.column)
     end
 
+    def previous_position_from_range(range)
+      position(range.line - 1, range.column - 1)
+    end
+
     def lines
       @lines ||= @raw_source.lines.to_a
     end

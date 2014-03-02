@@ -7,8 +7,8 @@ module RRT
       @ast = ast
     end
 
-    def find_node(position)
-      find_node_in_tree(@ast, position)
+    def find_node(position, trimming_from = :left)
+      adjust_position(position, trimming_from)
     end
 
     def self.parse(src)
@@ -16,6 +16,14 @@ module RRT
     end
 
     private
+
+    def adjust_position(position, trimming_from)
+      adjusted_position = find_node_in_tree(@ast, position)
+      return adjusted_position if adjusted_position
+      increment = (trimming_from == :left) ? 1 : -1
+      adjacent_position = position + increment
+      find_node(adjacent_position, trimming_from)
+    end
 
     def find_node_in_tree(root, position)
       return nil unless root.instance_of?(Parser::AST::Node)
@@ -35,8 +43,8 @@ module RRT
     def position_in_node?(position, node)
       expression = node.location.expression
       begin_position = @source.position_from_range(expression.begin)
-      end_position = @source.position_from_range(expression.end)
-      begin_position <= position && position < end_position
+      end_position = @source.previous_position_from_range(expression.end)
+      begin_position <= position && position <= end_position
     end
 
     def leaf?(root)
